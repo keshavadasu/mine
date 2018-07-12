@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+    .list-type1{
+    width:600px;
+    margin:0 auto;
+    }
+    .color{
+        color:brown
+    }
+    .list-type1 ul{
+    counter-reset: li;
+    list-style: none;
+    *list-style: decimal;
+    font-size: 15px;
+    font-family: 'Raleway', sans-serif;
+    padding: 0;
+    margin-bottom: 4em;
+    color:brown;
+    }
+    </style>
+    <title>MOVIES DB </title>
+    <link rel="shortcut icon" href="F:\Hydrangeas.ico" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        function getdetails() {
+            debugger
+
+            var title = document.getElementById('title').value;
+            var title = title.replace(/ /gi, "+");
+            var url = "http://www.omdbapi.com/?t=" + title + "&apikey=125816c3";
+            $.ajax({
+                url: url,
+                type: "GET",
+                dataType: 'jsonp',
+                jsonpCallback: 'testing',
+                error: (function () {
+                    console.log('error')
+                }),
+                success: (function (response) {
+                    debugger
+                    var length = Object.keys(response).length;
+                    //var details = JSON.stringify(response);
+                    if (length > 2) {
+                        var sourse = response["Poster"];
+                        var details = {
+                            title: response["Title"],
+                            year: response["Year"],
+                            Release_date: response["Released"],
+                            RunTime: response["Runtime"],
+                            Genre: response["Genre"],
+                            Director: response["Director"],
+                            Writer: response["Writer"],
+                            Actors: response["Actors"],
+                            Plot: response["Plot"],
+                            Language: response["Language"],
+                            Country: response["Country"],
+                            Awards: response["Awards"],
+                            Rating: response["imdbRating"],
+                            Production: response["Production"]}
+                        $("#image").html($("<img>").attr("src", sourse));
+                        
+                    }
+                    else {
+                        var details = {
+                            Response: response["Error"]
+                        };
+                        $("#image").html("");
+                    }
+                    $('#movies').html('<ul></ul>');
+                    $.each(details, function (k, v) {
+                        debugger
+                        html = '<span class="color">'+k+":"+v;
+                   $("#movies ul").append('<li>'+html+'</li>');
+                    });
+                    // Need to refresh list after AJAX call
+                   // $('#movies ul').listview();
+                })
+                   // $("#result").text(JSON.stringify(details));
+            });
+            $("#movies").addClass("list-type1");
+        }
+    </script>
+</head>
+<body>
+    <input type="text" id="title">
+    <input type="button" id="submit" value="Get Details" onclick="getdetails()">
+<!--    <p id="result"></p>-->
+    <div style="margin-top:50px"><span id="image" style="float:left"></span><span id="movies"style="float:left;margin-left:50px"></span>
+     </div>
+</body>
+</html>

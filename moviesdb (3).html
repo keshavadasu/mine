@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MOVIES DB </title>
+<link rel="shortcut icon" href="F:\Hydrangeas.ico" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    function getdetails() {
+        debugger
+
+        var title = document.getElementById('title').value;
+        var title = title.replace(/ /gi, "+");
+        var url = "http://www.omdbapi.com/?t=" + title + "&apikey=125816c3";
+        $.ajax({
+            url: url,
+            type: "GET",
+            dataType: 'jsonp',
+            jsonpCallback: 'testing',
+            error:(function() {
+                console.log('error')
+            }),
+            success: (function (response) {
+                
+                var details = JSON.stringify(response);
+                document.write(details);
+            })
+               // $('#result').innerHTML( response.results.d);
+        
+            });
+    }
+</script>
+</head>
+<body>
+<input type="text" id="title" >
+<input type="button" id="submit" value="Get Details" onclick="getdetails()">
+<p id="result"></p>
+</body>
+</html>
