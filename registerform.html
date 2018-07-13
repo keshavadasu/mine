@@ -1,0 +1,70 @@
+<html>
+    <head>
+        <title>
+            HITkart
+        </title>
+        <style>
+        .row{
+    padding: 10px;
+}
+        </style>
+        <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="styles" href="stylesheet.css">
+        <script>
+            function store(){
+                debugger
+                var username=document.getElementById('username').value;
+                var password=document.getElementById('password').value;
+                var email=document.getElementById('Email').value;
+                var conformpassword=document.getElementById('conformpassword').value;
+                var regEx=/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+                var test=regEx.test(email);
+                if(password!=conformpassword)
+                {
+                    alert("password and conform password fields should be matched")
+                    return false;
+                }
+                if(test===false)
+                {
+                    alert("please enter a valid email");
+                    return false;
+                }
+                if(password===conformpassword){
+                    sessionStorage.setItem('username',username);
+                    sessionStorage.setItem('email',email);
+                    sessionStorage.setItem('password',password);
+                    sessionStorage.setItem('cpassword',conformpassword);
+                    alert("registered successfully . . . .");
+                    return true;
+                }
+            }
+        </script>
+</head>
+    <body>
+            <form name="Registration" onsubmit="return store()" action="login.html" method="POST">
+        <div class="container" style="padding-top: 100px">
+        
+            <div class="row" >
+                <div class="col-md-1"></div>
+            <label class="col-md-2" for="username">User Name :</label>
+            <input type="text" id="username"class="col-md-3" placeholder="User Name"></div>
+            <div class="row">
+                    <div class="col-md-1"></div>
+            <label class="col-md-2" for="password">Password :</label>
+            <input type="text" id="password"class="col-md-3"placeholder="Password"></div> 
+            
+            <div class="row">
+                    <div class="col-md-1"></div><label class="col-md-2" for="E-mail">E-mail :</label>
+            <input type="text" id="Email"class="col-md-3"placeholder="E-mail"></div>
+            <div class="row">
+                    <div class="col-md-1"></div><label class="col-md-2" for="conformpassword">Confirm Password :</label>
+            <input type="text" id="conformpassword"class="col-md-3"placeholder="Confirm Password"></div>
+            <div style="padding-top: 50px; float: right;width: 50%"><button class="btn btn-info btn-sm">Register</button></div>
+        </div>
+        </form>
+    </body>
